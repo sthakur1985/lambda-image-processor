@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "attach" {
+resource "aws_iam_role_policy_attachment" "attach_r" {
   policy_arn = aws_iam_policy.lamda_r.arn
   role       = aws_iam_role.lambda_function.name
 }
@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "attach" {
+resource "aws_iam_role_policy_attachment" "attach_rw" {
   policy_arn = aws_iam_policy.lamda_rw.arn
   role       = aws_iam_role.lambda_function.name
 }
