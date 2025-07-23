@@ -83,7 +83,7 @@ data "aws_iam_policy_document" "lambda" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach" {
-  policy_arn = aws_iam_policy.lamda_r.arn
+  policy_arn = aws_iam_policy.lamda_rw.arn
   role       = aws_iam_role.lambda_function.name
 }
 
