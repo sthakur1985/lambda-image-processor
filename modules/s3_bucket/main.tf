@@ -1,11 +1,11 @@
 
 # modules/s3_bucket/main.tf
-resource "aws_s3_bucket" "this" {
+resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
 }
 
-resource "aws_s3_bucket_notification" "this" {
-  bucket = aws_s3_bucket.this.id
+resource "aws_s3_bucket_notification" "bucket_notify" {
+  bucket = aws_s3_bucket.bucket.id
 
   lambda_function {
     lambda_function_arn = var.lambda_arn
