@@ -1,6 +1,5 @@
 
-# modules/lambda_function/lambda.tf
-resource "aws_lambda_function" "this" {
+resource "aws_lambda_function" "lambda_py" {
   filename         = "${path.module}/src/lambda.zip"
   function_name    = var.function_name
   role             = var.role_arn
@@ -13,7 +12,7 @@ resource "aws_lambda_function" "this" {
 resource "aws_lambda_permission" "allow_s3" {
   statement_id  = "AllowS3Invoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.this.arn
+  function_name = aws_lambda_function.lambda_py.arn
   principal     = "s3.amazonaws.com"
   source_arn    = var.source_bucket_arn
 }
