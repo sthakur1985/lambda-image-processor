@@ -1,9 +1,9 @@
 variable "bucket_a_name" {
   type = string
-  default = 'bucket-a'
+  default = ["bucket-a"]
 }
 
 variable "bucket_b_name" {
   type = string
-  default = 'bucket-b'
+  default = ["bucket-b"]
 }
