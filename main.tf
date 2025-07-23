@@ -13,7 +13,7 @@ module "bucket_b" {
 }
 
 module "iam" {
-  source        = "./modules/iam_role"
+  source        = "./modules/iam_roles"
   name          = "exif-stripper-lambda-role"
   bucket_a_arn  = module.bucket_a.bucket_id
   bucket_b_arn  = module.bucket_b.bucket_id
