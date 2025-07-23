@@ -4,7 +4,7 @@ resource "aws_iam_role" "lambda_function_r" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-data "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "assume_role_r" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -20,7 +20,7 @@ resource "aws_iam_policy" "lambda_r" {
   policy = data.aws_iam_policy_document.lambda.json
 }
 
-data "aws_iam_policy_document" "lambda" {
+data "aws_iam_policy_document" "lambda_r" {
   statement {
     actions = [
       "s3:GetObject",
@@ -48,7 +48,7 @@ resource "aws_iam_role" "lambda_function_rw" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-data "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "assume_role_rw" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -64,7 +64,7 @@ resource "aws_iam_policy" "lambda_rw" {
   policy = data.aws_iam_policy_document.lambda.json
 }
 
-data "aws_iam_policy_document" "lambda" {
+data "aws_iam_policy_document" "lambda_rw" {
   statement {
     actions = [
       "s3:GetObject",
