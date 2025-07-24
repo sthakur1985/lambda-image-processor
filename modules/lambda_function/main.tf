@@ -1,4 +1,4 @@
-
+# lambda fuction to process the uploaded image in source bucket using python code
 resource "aws_lambda_function" "lambda_py" {
   filename         = "${path.module}/src/lambda.zip"
   function_name    = var.function_name
