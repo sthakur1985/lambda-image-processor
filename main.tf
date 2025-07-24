@@ -18,6 +18,7 @@ module "lambda" {
   function_name     = var.lambda_name
   role_arn          = module.iam.role_arn
   source_bucket_arn = module.bucket_a.bucket_arn
+  source_bucket_name = module.bucket_a.bucket_name
 }
 
 module "iam" {
