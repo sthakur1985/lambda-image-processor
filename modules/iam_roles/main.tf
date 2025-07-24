@@ -55,12 +55,12 @@ resource "aws_iam_role" "lambda_function" {
 
 
 resource "aws_iam_policy" "policy_r" {
-  name   = "${var.name}-policy"
+  name   = "${var.name}-r-policy"
   policy = data.aws_iam_policy_document.lambda_r.json
 }
 
 resource "aws_iam_policy" "policy_rw" {
-  name   = "${var.name}-policy"
+  name   = "${var.name}-rw-policy"
   policy = data.aws_iam_policy_document.lambda_rw.json
 }
 
