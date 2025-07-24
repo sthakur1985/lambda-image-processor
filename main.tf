@@ -8,7 +8,7 @@ module "bucket_a" {
 
 module "bucket_b" {
   source      = "./modules/s3_bucket"
-  bucket_name = var.bucket_name[0]
+  bucket_name = var.bucket_name[1]
   #lambda_arn  = "" # no lambda triggers
   lambda_permission = ""
 }
