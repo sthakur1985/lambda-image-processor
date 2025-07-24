@@ -11,40 +11,43 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "lambda_r" {
-  statement {
-    actions = [
-      "s3:GetObject"
-    ]
-    resources = [
-      "${var.bucket_a_arn}/*",
-      "${var.bucket_b_arn}/*"
-    ]
-    effect = "Allow"
-  }
+resource "aws_iam_user_policy" "lambda_b_policy" {
+  name = "lambda-bucket-b-policy"
+  user = aws_iam_user.user_a.name
 
-  statement {
-    actions = ["logs:*"]
-    resources = ["*"]
-  }
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject", "s3:ListBucket"],
+        Resource = [
+          "arn:aws:s3:::${var.bucket_a_name}",
+          "arn:aws:s3:::${var.bucket_a_name}/*"
+        ]
+      }
+    ]
+  })
 }
 
-data "aws_iam_policy_document" "lambda_rw" {
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject"
-    ]
-    resources = [
-      "${var.bucket_b_arn}/*"
-    ]
-    effect = "Allow"
-  }
+ 
 
-  statement {
-    actions = ["logs:*"]
-    resources = ["*"]
-  }
+resource "aws_iam_policy" "lambda_a_policy" {
+  name = "lambda-bucket-a-policy"
+  
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = ["s3:GetObject", "s3:ListBucket"],
+        Resource = [
+          "arn:aws:s3:::${var.bucket_b_name}",
+          "arn:aws:s3:::${var.bucket_b_name}/*"
+        ]
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role" "lambda_function" {
@@ -54,23 +57,13 @@ resource "aws_iam_role" "lambda_function" {
 
 
 
-resource "aws_iam_policy" "policy_r" {
-  name   = "${var.name}-r-policy"
-  policy = data.aws_iam_policy_document.lambda_r.json
-}
-
-resource "aws_iam_policy" "policy_rw" {
-  name   = "${var.name}-rw-policy"
-  policy = data.aws_iam_policy_document.lambda_rw.json
-}
-
 resource "aws_iam_role_policy_attachment" "attach_r" {
-  policy_arn = aws_iam_policy.policy_r.arn
+  policy_arn = aws_iam_policy.lambda_a_policy.arn
   role       = aws_iam_role.lambda_function.name
 }
 
 resource "aws_iam_role_policy_attachment" "attach_rw" {
-  policy_arn = aws_iam_policy.policy_rw.arn
+  policy_arn = aws_iam_policy.lambda_b_policy.arn
   role       = aws_iam_role.lambda_function.name
 }
 
