@@ -1,7 +1,13 @@
-
-# modules/s3_bucket/main.tf
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
+}
+
+resource "aws_lambda_permission" "allow_s3" {
+  statement_id = "AllowS3Invoke"
+  action = "lambda:InvokeFunction"
+  function_name = var.lambda_name
+  principal = "s3.amazonaws.com"
+  source_arn = aws_s3_bucket.bucket.arn
 }
 
 resource "aws_s3_bucket_notification" "bucket_notify" {
@@ -13,6 +19,8 @@ resource "aws_s3_bucket_notification" "bucket_notify" {
     filter_suffix       = ".jpg"
   }
 
-  depends_on = [var.lambda_permission]
+  depends_on = [
+aws_lambda_permission.allow_s3
+]
 }
 
