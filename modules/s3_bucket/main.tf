@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_lambda_permission" "allow_s3" {
-  count = var.lambda_name !=null?1:0
+  count = var.lambda_name  != null ? 1 : 0
   statement_id = "AllowS3Invoke"
   action = "lambda:InvokeFunction"
   function_name = var.lambda_name
@@ -12,7 +12,7 @@ resource "aws_lambda_permission" "allow_s3" {
 }
 
 resource "aws_s3_bucket_notification" "bucket_notify" {
-  count = var.lambda_name !=null?1:0
+  count = var.lambda_name != null ? 1 : 0
   bucket = aws_s3_bucket.bucket.id
 
   lambda_function {
