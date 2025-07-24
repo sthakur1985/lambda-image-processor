@@ -1,15 +1,15 @@
 module "bucket_a" {
   source         = "./modules/s3_bucket"
   bucket_name    = "source-bucket-a-0725"
-  lambda_arn     = module.lambda.lambda_arn
-  lambda_permission = module.lambda.lambda_permission
+  #lambda_arn     = module.lambda.lambda_arn
+  #lambda_permission = module.lambda.lambda_permission
 }
 
 module "bucket_b" {
   source      = "./modules/s3_bucket"
   bucket_name = "destination-bucket-b-0725"
-  lambda_arn  = "" # no lambda triggers
-  lambda_permission = ""
+  #lambda_arn  = "" # no lambda triggers
+  #lambda_permission = ""
 }
 
 module "iam" {
