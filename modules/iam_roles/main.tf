@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "assume_role" {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
 
-    effect = "Allow"
+    
     }
   }
 }
