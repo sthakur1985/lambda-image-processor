@@ -16,9 +16,9 @@ resource "aws_iam_user_policy" "user_a_policy" {
       {
         Effect   = "Allow",
         Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject", "s3:ListBucket"],
-        Resource = [
-          "arn:aws:s3:::${var.bucket_a_name}",
-          "arn:aws:s3:::${var.bucket_a_name}/*"
+        resources = [
+          "${var.bucket_a_arn}/*",
+          "${var.bucket_b_arn}/*"
         ]
       }
     ]
@@ -36,8 +36,8 @@ resource "aws_iam_user_policy" "user_b_policy" {
         Effect   = "Allow",
         Action   = ["s3:GetObject", "s3:ListBucket"],
         Resource = [
-          "arn:aws:s3:::${var.bucket_b_name}",
-          "arn:aws:s3:::${var.bucket_b_name}/*"
+          "${var.bucket_a_arn}/*",
+          "${var.bucket_b_arn}/*"
         ]
       }
     ]
