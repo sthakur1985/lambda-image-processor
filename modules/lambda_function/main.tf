@@ -15,6 +15,7 @@ resource "aws_lambda_permission" "allow_s3" {
   function_name = aws_lambda_function.lambda_py.arn
   principal     = "s3.amazonaws.com"
   source_arn    = var.source_bucket_arn
+  destination_arn = var.destination_bucket_arn
 }
 
 
