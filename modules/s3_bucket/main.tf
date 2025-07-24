@@ -1,3 +1,4 @@
+#s3 bucket module to filter out on condition for lamda trigger or storgae bucket
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
 }
