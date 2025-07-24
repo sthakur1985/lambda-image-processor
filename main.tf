@@ -30,7 +30,7 @@ module "iam" {
 
 module "iam_users" {
   source         = "./modules/iam_users"
-  bucket_a_name  = module.bucket_a.bucket_name
-  bucket_b_name  = module.bucket_b.bucket_name
+  bucket_a_name  = module.bucket_a.bucket_id
+  bucket_b_name  = module.bucket_b.bucket_id
 }
 
