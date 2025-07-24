@@ -1,8 +1,9 @@
 module "bucket_a" {
   source         = "./modules/s3_bucket"
   bucket_name    = "source-bucket-a-0725"
-  #lambda_arn     = module.lambda.lambda_arn
-  #lambda_permission = module.lambda.lambda_permission
+  lambda_arn     = module.lambda_function.lambda_arn
+  lambda_permission = module.lambda_function.lambda_permission
+  lambda_name = module.lambda_function.lambda_name
 }
 
 module "bucket_b" {
@@ -10,6 +11,13 @@ module "bucket_b" {
   bucket_name = "destination-bucket-b-0725"
   #lambda_arn  = "" # no lambda triggers
   #lambda_permission = ""
+}
+
+module "lambda" {
+  source            = "./modules/lambda_function"
+  function_name     = "exif-stripper"
+  role_arn          = module.iam.role_arn
+  source_bucket_arn = module.bucket_a.bucket_arn
 }
 
 module "iam" {
