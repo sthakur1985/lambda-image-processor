@@ -8,8 +8,8 @@ module "bucket_a" {
 module "bucket_b" {
   source      = "./modules/s3_bucket"
   bucket_name = "destination-bucket-b-0725"
-  #lambda_arn  = module.lambda.lambda_arn # no lambda triggers
-  #lambda_permission = module.lambda.lambda_permission
+  lambda_arn  = "" # no lambda triggers
+  lambda_permission = ""
 }
 
 module "iam" {
