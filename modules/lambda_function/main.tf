@@ -10,7 +10,7 @@ resource "aws_lambda_function" "lambda_py" {
 }
 
 resource "aws_lambda_permission" "allow_s3" {
-  statement_id  = "AllowS3Invoke"
+  statement_id  = "AllowS3Invoke--${var.source_bucket_name}"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.lambda_py.arn
   principal     = "s3.amazonaws.com"
