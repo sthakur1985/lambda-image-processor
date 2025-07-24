@@ -1,35 +1,26 @@
-
-resource "aws_iam_role" "lambda_function_r" {
-  name = var.name
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-}
-
-resource "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
+
+    effect = "Allow"
     }
   }
 }
 
-resource "aws_iam_policy" "lambda_r" {
-  name   = "${var.name}-policy"
-  policy = data.aws_iam_policy_document.lambda.json
-}
-
-resource "aws_iam_policy_document" "lambda_r" {
+data "aws_iam_policy_document" "lambda_r" {
   statement {
     actions = [
-      "s3:GetObject",
-      "s3:PutObject"
+      "s3:GetObject"
     ]
     resources = [
       "${var.bucket_a_arn}/*",
       "${var.bucket_b_arn}/*"
     ]
+    effect = "Allow"
   }
 
   statement {
@@ -38,44 +29,49 @@ resource "aws_iam_policy_document" "lambda_r" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "attach_r" {
-  policy_arn = aws_iam_policy.lamda_r.arn
-  role       = aws_iam_role.lambda_function_r.name
+data "aws_iam_policy_document" "lambda_rw" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject"
+    ]
+    resources = [
+      "${var.bucket_b_arn}/*"
+    ]
+    effect = "Allow"
+  }
+
+  statement {
+    actions = ["logs:*"]
+    resources = ["*"]
+  }
 }
 
-resource "aws_iam_role" "lambda_function_rw" {
+resource "aws_iam_role" "lambda_function" {
   name = var.name
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 
 
-resource "aws_iam_policy" "lambda_rw" {
+resource "aws_iam_policy" "policy_r" {
+  name   = "${var.name}-policy"
+  policy = data.aws_iam_policy_document.lambda_r.json
+}
+
+resource "aws_iam_policy" "policy_rw" {
   name   = "${var.name}-policy"
   policy = data.aws_iam_policy_document.lambda_rw.json
 }
 
-resource "aws_iam_policy_document" "lambda_rw" {
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject"
-    ]
-    resources = [
-      "${var.bucket_a_arn}/*",
-      "${var.bucket_b_arn}/*"
-    ]
-  }
-
-  statement {
-    actions = ["logs:*"]
-    resources = ["*"]
-  }
+resource "aws_iam_role_policy_attachment" "attach_r" {
+  policy_arn = aws_iam_policy.policy_r.arn
+  role       = aws_iam_role.lambda_function.name
 }
 
 resource "aws_iam_role_policy_attachment" "attach_rw" {
-  policy_arn = aws_iam_policy.lamda_rw.arn
-  role       = aws_iam_role.lambda_function_rw.name
+  policy_arn = aws_iam_policy.policy_rw.arn
+  role       = aws_iam_role.lambda_function.name
 }
 
 
