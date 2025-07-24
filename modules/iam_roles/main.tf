@@ -11,9 +11,8 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-resource "aws_iam_user_policy" "lambda_b_policy" {
+resource "aws_iam_policy" "lambda_b_policy" {
   name = "lambda-bucket-b-policy"
-  user = aws_iam_user.user_a.name
 
   policy = jsonencode({
     Version = "2012-10-17",
