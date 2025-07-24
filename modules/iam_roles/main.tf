@@ -25,8 +25,8 @@ resource "aws_iam_policy" "lambda_rw_bucket_a" {
           "s3:ListBucket"
         ],
         Resource = [
-          "arn:aws:s3:::${var.bucket_a_name}",
-          "arn:aws:s3:::${var.bucket_a_name}/*"
+          "${var.bucket_a_arn}",
+          "${var.bucket_a_arn}/*"
         ]
       }
     ]
@@ -47,8 +47,8 @@ resource "aws_iam_policy" "lambda_ro_bucket_b" {
           "s3:ListBucket"
         ],
         Resource = [
-          "arn:aws:s3:::${var.bucket_b_name}",
-          "arn:aws:s3:::${var.bucket_b_name}/*"
+          "${var.bucket_b_arn}",
+          "${var.bucket_b_arn}/*"
         ]
       }
     ]
