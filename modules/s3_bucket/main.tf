@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_bucket_notification" "bucket_notify" {
-  bucket_arn = aws_s3_bucket.bucket.arn
+  bucket = aws_s3_bucket.bucket.id
 
   lambda_function {
     lambda_function_arn = var.lambda_arn
