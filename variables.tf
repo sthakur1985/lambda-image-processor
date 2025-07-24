@@ -1,6 +1,6 @@
 
 variable "bucket_name" { 
-  type = list(string) 
+  type = set(string) 
   default = ["source-bucket-a-0725", destination-bucket-b-0725"]
 }
 
