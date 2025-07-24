@@ -18,7 +18,6 @@ module "lambda" {
   function_name     = "exif-stripper"
   role_arn          = module.iam.role_arn
   source_bucket_arn = module.bucket_a.bucket_arn
-  destination_bucket_arn = module.bucket_b.bucket_arn
 }
 
 module "iam" {
