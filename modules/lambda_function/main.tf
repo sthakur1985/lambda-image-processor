@@ -18,7 +18,7 @@ resource "aws_lambda_permission" "allow_s3" {
   source_arn    = var.source_bucket_arn
 }
 
-resource "aws_lambda_event_invoke_config" "lambda_success_dest" {
+resource "aws_lambda_function_event_invoke_config" "lambda_success_dest" {
   function_name = aws_lambda_function.lambda_py.function_name
   qualifier     = "$LATEST"
 
