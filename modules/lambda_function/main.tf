@@ -7,6 +7,12 @@ resource "aws_lambda_function" "lambda_py" {
   runtime          = "python3.9"
   source_code_hash = filebase64sha256("${path.module}/src/lambda.zip")
   timeout          = 10
+
+  environment {
+    variables = {
+      DEST_BUCKET = var.destination_bucket_name
+    }
+  }
 }
 
 resource "aws_lambda_permission" "allow_s3" {
