@@ -1,4 +1,11 @@
 # lambda fuction to process the uploaded image in source bucket using python code
+
+resource "aws_lambda_layer_version" "pillow_layer" {
+  filename         = "${path.module}/src/lambda.zip"
+  layer_name       = "custom-pillow"
+  compatible_runtimes = ["python3.9"]
+}
+
 resource "aws_lambda_function" "lambda_py" {
 
   filename         = "${path.module}/src/lambda.zip"
@@ -8,7 +15,7 @@ resource "aws_lambda_function" "lambda_py" {
   runtime          = "python3.9"
   source_code_hash = filebase64sha256("${path.module}/src/lambda.zip")
   timeout          = 10
-
+  layers = [aws_lambda_layer_version.pillow_layer.arn]
   environment {
     variables = {
       DEST_BUCKET = var.destination_bucket_name
