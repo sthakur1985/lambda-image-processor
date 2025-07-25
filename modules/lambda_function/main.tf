@@ -24,7 +24,7 @@ resource "aws_lambda_function_event_invoke_config" "lambda_success_dest" {
 
   destination_config {
     on_success {
-      destination = "${var.destination_bucket_name}"
+      destination = "arn:aws:s3:::${var.destination_bucket_name}"
     }
   }
 }
