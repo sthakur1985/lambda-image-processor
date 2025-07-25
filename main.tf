@@ -19,7 +19,6 @@ module "lambda" {
   role_arn          = module.iam.role_arn
   source_bucket_arn = module.bucket_a.bucket_arn
   source_bucket_name = module.bucket_a.bucket_id
-  destination_bucket_name = module.bucket_b.bucket_id
 }
 
 module "iam" {
