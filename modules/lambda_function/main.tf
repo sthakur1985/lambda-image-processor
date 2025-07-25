@@ -1,7 +1,7 @@
 # lambda fuction to process the uploaded image in source bucket using python code
 resource "aws_lambda_function" "lambda_py" {
   layers = [
-    "arn:aws:lambda:<region>:770693421928:layer:Klayers-p39-Pillow:1"
+    "arn:aws:lambda:eu-west-2:770693421928:layer:Klayers-p39-Pillow:1"
   ]
   filename         = "${path.module}/src/lambda.zip"
   function_name    = var.function_name
