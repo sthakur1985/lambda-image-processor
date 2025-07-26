@@ -1,7 +1,7 @@
 # lambda fuction to process the uploaded image in source bucket using python code
 
 resource "aws_lambda_layer_version" "pillow_layer" {
-  filename         = "${path.module}/src/lambda.zip"
+  filename         = "${path.module}/src/pillow-layer.zip"
   layer_name       = "custom-pillow"
   compatible_runtimes = ["python3.9"]
 }
